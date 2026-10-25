@@ -47,9 +47,65 @@
       display: flex;
       justify-content: space-between;
       gap: 16px;
-      align-items: flex-end;
+      align-items: center;
+      flex-wrap: wrap;
       padding-top: 12px;
     }
+    .pix-botao {
+      border: 1px solid #3d3d40;
+      background: #17181a;
+      color: var(--texto);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 650;
+      cursor: pointer;
+    }
+    .pix-botao:hover { border-color: #fff; }
+    dialog.pix {
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: inherit;
+    }
+    dialog.pix::backdrop { background: rgba(0, 0, 0, 0.72); }
+    .pix-caixa {
+      width: min(400px, calc(100vw - 32px));
+      background: #fff;
+      color: #141414;
+      border-radius: 16px;
+      padding: 20px 20px 16px;
+      text-align: center;
+    }
+    .pix-caixa h2 { margin: 0 0 6px; font-size: 20px; }
+    .pix-caixa p { margin: 0 0 12px; font-size: 14px; line-height: 1.4; color: #3a3a3a; }
+    .pix-caixa img { width: 220px; height: 220px; display: block; margin: 0 auto 8px; }
+    .pix-quem { font-weight: 700; color: #141414; }
+    .pix-caixa label { display: block; text-align: left; font-size: 12px; color: #5c5c5c; margin-bottom: 4px; }
+    .pix-caixa textarea {
+      width: 100%;
+      resize: none;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 8px;
+      font: 12px/1.35 ui-monospace, Consolas, monospace;
+      color: #141414;
+      background: #f6f6f6;
+    }
+    .pix-acoes { display: flex; gap: 8px; margin-top: 12px; }
+    .pix-acoes button {
+      flex: 1;
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 12px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 650;
+      cursor: pointer;
+    }
+    #pix-copiar { background: #0d0d0e; color: #fff; }
+    #pix-fechar { background: #ececec; color: #141414; }
     h1 { font-size: 22px; line-height: 1.2; margin: 0; font-weight: 700; }
     .quando { color: var(--mudo); font-size: 13px; margin-top: 4px; }
     .numeros {
@@ -117,6 +173,7 @@
     @media (max-width: 720px) {
       h1 { font-size: 20px; }
       .numero strong { font-size: 24px; }
+      .pix-botao { font-size: 13px; padding: 7px 12px; }
       .dica {
         position: fixed;
         left: 12px;
@@ -135,6 +192,7 @@
       <h1>Apuração presidencial 2026</h1>
       <div class="quando" id="quando">Carregando dados do TSE…</div>
     </div>
+    <button type="button" class="pix-botao" id="abrir-pix">Apoiar com PIX</button>
   </header>
   <section class="numeros" id="numeros"></section>
   <section class="legenda" aria-label="Diferença em pontos percentuais">
@@ -163,6 +221,20 @@
     <p>Fonte: Tribunal Superior Eleitoral, eleição 6258, 2º turno, presidente. A cor mostra a diferença, em pontos percentuais, entre os percentuais de votos válidos. O site consulta os arquivos públicos do TSE e se atualiza sozinho enquanto a apuração está aberta.</p>
   </footer>
   </div>
+  <dialog id="pix" class="pix" aria-labelledby="pix-titulo">
+    <div class="pix-caixa">
+      <h2 id="pix-titulo">Apoiar com PIX</h2>
+      <p>O valor é livre. No app do banco, leia o QR ou use o Pix Copia e Cola.</p>
+      <img src="pix.svg" width="220" height="220" alt="QR Code PIX de Rafael Aparecido Damasio">
+      <p class="pix-quem">Rafael Aparecido Damasio · São Paulo</p>
+      <label for="pix-codigo">Pix Copia e Cola</label>
+      <textarea id="pix-codigo" readonly rows="4">00020101021126580014br.gov.bcb.pix013675d73687-7e4a-4aca-83dc-737c41c73f5b5204000053039865802BR5924RAFAEL APARECIDO DAMASIO6009SAO PAULO622905251M5TH5PMYZV8E98RRFFVQ54ZE63041C7B</textarea>
+      <div class="pix-acoes">
+        <button type="button" id="pix-copiar">Copiar código</button>
+        <button type="button" id="pix-fechar">Fechar</button>
+      </div>
+    </div>
+  </dialog>
   <script>
     const LULA = ["#e88c8c", "#d94040", "#cc0000"];
     const FLAVIO = ["#b7e6c9", "#2da85a", "#009c3b"];
@@ -299,6 +371,28 @@
     }
     encaixarTopo();
     window.addEventListener("resize", encaixarTopo);
+    const pixDialog = document.getElementById("pix");
+    const codigoPix = document.getElementById("pix-codigo").value;
+    document.getElementById("abrir-pix").addEventListener("click", () => pixDialog.showModal());
+    document.getElementById("pix-fechar").addEventListener("click", () => pixDialog.close());
+    pixDialog.addEventListener("click", (evento) => {
+      const caixa = pixDialog.getBoundingClientRect();
+      const fora = evento.clientX < caixa.left || evento.clientX > caixa.right || evento.clientY < caixa.top || evento.clientY > caixa.bottom;
+      if (fora) pixDialog.close();
+    });
+    document.getElementById("pix-copiar").addEventListener("click", async () => {
+      const botao = document.getElementById("pix-copiar");
+      try {
+        await navigator.clipboard.writeText(codigoPix);
+      } catch {
+        const campo = document.getElementById("pix-codigo");
+        campo.focus();
+        campo.select();
+        document.execCommand("copy");
+      }
+      botao.textContent = "Código copiado";
+      setTimeout(() => { botao.textContent = "Copiar código"; }, 2000);
+    });
     iniciar().catch(() => {
       document.getElementById("quando").textContent = "Não foi possível carregar a apuração agora.";
       encaixarTopo();
