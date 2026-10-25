@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apuração presidencial 2026</title>
+  <meta name="description" content="Mapa da apuração do 2º turno para presidente. Porcentagem de Lula e Flávio Bolsonaro em cada estado, com dados do TSE.">
+  <meta property="og:title" content="Apuração presidencial 2026">
+  <meta property="og:description" content="Veja a apuração do 2º turno por estado. Passe o dedo ou o mouse para ver a porcentagem de cada candidato.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rafaeldamasio.github.io/apuracao-2026/">
+  <meta property="og:image" content="https://rafaeldamasio.github.io/apuracao-2026/og.png">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0d0d0e">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --fundo: #0d0d0e;
+      --cartao: #17181a;
+      --texto: #f5f5f5;
+      --mudo: #a3a3a3;
+      --cinza: #d2d2d2;
+      --lula: #d60828;
+      --lula-claro: #f3b5bf;
+      --flavio: #272d97;
+      --flavio-claro: #bec0e0;
+      --lula-faixas: #f3b5bf, #e66b7e, #d60828;
+      --flavio-faixas: #bec0e0, #7d81c1, #272d97;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--fundo); color: var(--texto); }
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      min-height: 100vh;
+    }
+    a { color: #f3b5bf; }
+    header, footer, .legenda, .numeros { padding: 0 20px; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-end;
+      padding-top: 20px;
+    }
+    h1 { font-size: 22px; line-height: 1.2; margin: 0; font-weight: 700; }
+    .quando { color: var(--mudo); font-size: 13px; margin-top: 4px; }
+    .numeros {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px 28px;
+      margin-top: 16px;
+    }
+    .numero strong { display: block; font-size: 28px; letter-spacing: -0.04em; }
+    .numero span { color: var(--mudo); font-size: 13px; }
+    .numero.lula strong { color: var(--lula-claro); }
+    .numero.flavio strong { color: var(--flavio-claro); }
+    .legenda { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: flex-end; }
+    .faixas { display: flex; gap: 4px; }
+    .faixas i { width: 28px; height: 12px; display: block; }
+    .rotulo { font-size: 12px; color: var(--mudo); margin-top: 4px; }
+    .mapa-caixa { position: relative; margin-top: 8px; }
+    svg { display: block; width: 100%; height: auto; }
+    path { cursor: pointer; }
+    .sigla { font-size: 12px; font-weight: 700; pointer-events: none; }
+    .dica {
+      position: absolute;
+      width: 240px;
+      background: #fff;
+      color: #1a1a1a;
+      border-radius: 10px;
+      overflow: hidden;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .dica header {
+      display: block;
+      background: var(--fundo);
+      color: #fff;
+      padding: 8px 10px;
+    }
+    .dica header strong { font-size: 14px; }
+    .dica header p { margin: 2px 0 0; font-size: 12px; color: #cfcfcf; }
+    .dica .corpo { padding: 8px 10px 10px; display: flex; flex-direction: column; gap: 8px; }
+    .linha { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; }
+    .linha b { font-size: 15px; }
+    .barra { height: 6px; background: #ececec; margin-top: 3px; }
+    .barra span { display: block; height: 100%; }
+    .votos { font-size: 11px; color: #5c5c5c; margin-top: 2px; }
+    .sumico { display: none; }
+    footer {
+      color: var(--mudo);
+      font-size: 12px;
+      line-height: 1.45;
+      padding-bottom: 28px;
+    }
+    @media (max-width: 720px) {
+      h1 { font-size: 20px; }
+      .numero strong { font-size: 24px; }
+      .dica {
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        top: auto !important;
+        width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Apuração presidencial 2026</h1>
+      <div class="quando" id="quando">Carregando dados do TSE…</div>
+    </div>
+  </header>
+  <section class="numeros" id="numeros"></section>
+  <section class="legenda" aria-label="Diferença em pontos percentuais">
+    <div>
+      <div class="faixas" id="faixas-lula"></div>
+      <div class="rotulo">Lula</div>
+    </div>
+    <div>
+      <div class="faixas" id="faixas-flavio"></div>
+      <div class="rotulo">Flávio Bolsonaro</div>
+    </div>
+    <div>
+      <div class="faixas"><i style="background:#d2d2d2"></i></div>
+      <div class="rotulo">Sem divisão nominal</div>
+    </div>
+    <div class="rotulo">0 a 5 p.p. · 5 a 20 p.p. · acima de 20 p.p.</div>
+  </section>
+  <div class="mapa-caixa" id="mapa">
+    <svg viewBox="0 0 560 560" role="img" aria-label="Mapa do Brasil com a vantagem de cada candidato por estado"></svg>
+    <aside class="dica sumico" id="dica"></aside>
+  </div>
+  <footer>
+    <p id="nota"></p>
+    <p>Fonte: Tribunal Superior Eleitoral, eleição 6258, 2º turno, presidente. A cor mostra a diferença, em pontos percentuais, entre os percentuais de votos válidos. O site consulta os arquivos públicos do TSE e se atualiza sozinho enquanto a apuração está aberta.</p>
+  </footer>
+  <script>
+    const LULA = ["#f3b5bf", "#e66b7e", "#d60828"];
+    const FLAVIO = ["#bec0e0", "#7d81c1", "#272d97"];
+    const CINZA = "#d2d2d2";
+    const FUNDO = "#0d0d0e";
+
+    function mil(n) {
+      return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+    function numero(pct) {
+      return Number(String(pct).replace(/\./g, "").replace(",", ".")) || 0;
+    }
+    function pp(n) {
+      return n.toFixed(1).replace(".", ",");
+    }
+    function achar(lista, numeroCandidato) {
+      return (lista || []).find((c) => c.numero === numeroCandidato);
+    }
+    function cor(uf) {
+      if (!uf.publicado) return CINZA;
+      const lula = achar(uf.candidatos, "13");
+      const flavio = achar(uf.candidatos, "22");
+      if (!lula || !flavio) return CINZA;
+      const diff = Math.abs(numero(lula.pct) - numero(flavio.pct));
+      const faixa = diff <= 5 ? 0 : diff <= 20 ? 1 : 2;
+      return numero(lula.pct) >= numero(flavio.pct) ? LULA[faixa] : FLAVIO[faixa];
+    }
+    function faixa(id, cores) {
+      document.getElementById(id).innerHTML = cores.map((c) => `<i style="background:${c}"></i>`).join("");
+    }
+
+    function htmlDica(uf) {
+      const lula = achar(uf.candidatos, "13");
+      const flavio = achar(uf.candidatos, "22");
+      let corpo;
+      if (lula && flavio) {
+        const diff = Math.abs(numero(lula.pct) - numero(flavio.pct));
+        const frente = numero(lula.pct) >= numero(flavio.pct) ? "Lula" : "Flávio Bolsonaro";
+        corpo = `
+          ${linha("Lula", lula, LULA[2])}
+          ${linha("Flávio Bolsonaro", flavio, FLAVIO[2])}
+          <div>${frente} à frente por ${pp(diff)} p.p.</div>`;
+      } else if (uf.st > 0) {
+        corpo = `<div>O TSE ainda não publicou a divisão dos votos nesta UF. Comparecimento: ${mil(uf.comparecimento)}.</div>`;
+      } else {
+        corpo = `<div>Nenhuma seção totalizada até este horário.</div>`;
+      }
+      return `<header><strong>${uf.nome}</strong><p>${uf.pst}% das seções apuradas</p></header><div class="corpo">${corpo}</div>`;
+    }
+    function linha(nome, candidato, corBarra) {
+      return `<div>
+        <div class="linha"><span>${nome}</span><b>${candidato.pct}%</b></div>
+        <div class="barra"><span style="width:${numero(candidato.pct)}%;background:${corBarra}"></span></div>
+        <div class="votos">${mil(candidato.votos)} votos válidos</div>
+      </div>`;
+    }
+
+    async function iniciar() {
+      faixa("faixas-lula", LULA);
+      faixa("faixas-flavio", FLAVIO);
+      const [dados, mapa] = await Promise.all([
+        fetch("dados.json", { cache: "no-store" }).then((r) => r.json()),
+        fetch("mapa.json", { cache: "force-cache" }).then((r) => r.json()),
+      ]);
+      const porUf = Object.fromEntries(dados.ufs.map((uf) => [uf.uf, uf]));
+      const lula = achar(dados.nacional.candidatos, "13");
+      const flavio = achar(dados.nacional.candidatos, "22");
+      document.getElementById("quando").textContent = `2º turno · atualizado em ${dados.geradoEm} (horário de Brasília) · ${dados.nacional.pst}% das seções`;
+      document.title = `Apuração 2026 · Lula ${lula.pct}% · Flávio ${flavio.pct}%`;
+      document.getElementById("numeros").innerHTML = `
+        <div class="numero"><strong>${dados.nacional.pst}%</strong><span>${mil(dados.nacional.st)} de ${mil(dados.nacional.ts)} seções</span></div>
+        <div class="numero lula"><strong>${lula.pct}%</strong><span>Lula · ${mil(lula.votos)} votos</span></div>
+        <div class="numero flavio"><strong>${flavio.pct}%</strong><span>Flávio Bolsonaro · ${mil(flavio.votos)} votos</span></div>`;
+      const parteExterior = dados.exterior.comparecimento / dados.nacional.comparecimento;
+      document.getElementById("nota").textContent = parteExterior > 0.4
+        ? `Neste horário, o exterior responde por ${mil(dados.exterior.comparecimento)} comparecimentos (${Math.round(parteExterior * 100)}% do total nacional), com ${dados.exterior.pst}% das seções de fora do país apuradas.`
+        : "";
+
+      const svg = document.querySelector("svg");
+      const ns = "http://www.w3.org/2000/svg";
+      const dica = document.getElementById("dica");
+      const caixa = document.getElementById("mapa");
+      const toque = window.matchMedia("(max-width: 720px)").matches;
+      const formas = mapa.ufs.slice().sort((a, b) => (porUf[b.uf]?.ts || 0) - (porUf[a.uf]?.ts || 0));
+
+      function mostrar(uf, evento) {
+        dica.classList.remove("sumico");
+        dica.innerHTML = htmlDica(uf);
+        if (toque) return;
+        const rect = caixa.getBoundingClientRect();
+        let x = evento.clientX - rect.left + 14;
+        let y = evento.clientY - rect.top + 14;
+        if (x > rect.width - 250) x = evento.clientX - rect.left - 250;
+        if (y > rect.height - 180) y = evento.clientY - rect.top - 180;
+        dica.style.left = `${Math.max(8, x)}px`;
+        dica.style.top = `${Math.max(8, y)}px`;
+      }
+
+      for (const forma of formas) {
+        const uf = porUf[forma.uf];
+        if (!uf) continue;
+        const path = document.createElementNS(ns, "path");
+        path.setAttribute("d", forma.d);
+        path.setAttribute("fill", cor(uf));
+        path.setAttribute("fill-rule", "evenodd");
+        path.setAttribute("stroke", "#f4f4f4");
+        path.setAttribute("stroke-width", "0.8");
+        path.setAttribute("stroke-linejoin", "round");
+        path.addEventListener("pointerenter", (evento) => mostrar(uf, evento));
+        path.addEventListener("pointermove", (evento) => { if (!toque) mostrar(uf, evento); });
+        path.addEventListener("pointerdown", (evento) => mostrar(uf, evento));
+        svg.appendChild(path);
+      }
+      for (const forma of mapa.ufs) {
+        const texto = document.createElementNS(ns, "text");
+        texto.setAttribute("class", "sigla");
+        texto.setAttribute("x", forma.lx);
+        texto.setAttribute("y", forma.ly);
+        texto.setAttribute("text-anchor", "middle");
+        texto.setAttribute("dominant-baseline", "central");
+        texto.setAttribute("fill", "#ffffff");
+        texto.setAttribute("stroke", FUNDO);
+        texto.setAttribute("stroke-width", "2.5");
+        texto.setAttribute("paint-order", "stroke");
+        texto.textContent = forma.uf;
+        svg.appendChild(texto);
+      }
+      if (!toque) caixa.addEventListener("pointerleave", () => dica.classList.add("sumico"));
+    }
+    iniciar().catch(() => {
+      document.getElementById("quando").textContent = "Não foi possível carregar a apuração agora.";
+    });
+  </script>
+</body>
+</html>

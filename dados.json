@@ -1,0 +1,416 @@
+{
+  "geradoEm": "25/10/2026 17:06:27",
+  "eleicao": "6258",
+  "nacional": {
+    "pst": "0,25",
+    "st": 1225,
+    "ts": 499248,
+    "comparecimento": 345054,
+    "validos": 335743,
+    "brancos": 4158,
+    "nulos": 5153,
+    "pctBrancos": "1,21",
+    "pctNulos": "1,49",
+    "candidatos": [
+      {
+        "numero": "13",
+        "nome": "Lula",
+        "partido": "PT",
+        "votos": 193574,
+        "pct": "57,66"
+      },
+      {
+        "numero": "22",
+        "nome": "Flávio Bolsonaro",
+        "partido": "PL",
+        "votos": 142169,
+        "pct": "42,34"
+      }
+    ]
+  },
+  "exterior": {
+    "uf": "ZZ",
+    "nome": "Exterior",
+    "pst": "57,59",
+    "pstn": 57.586972613,
+    "st": 778,
+    "ts": 1351,
+    "comparecimento": 243602,
+    "publicado": false,
+    "candidatos": []
+  },
+  "ufs": [
+    {
+      "uf": "AC",
+      "nome": "Acre",
+      "pst": "0,75",
+      "pstn": 0.748898678,
+      "st": 17,
+      "ts": 2270,
+      "comparecimento": 2213,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "AL",
+      "nome": "Alagoas",
+      "pst": "0,01",
+      "pstn": 0.014082524,
+      "st": 1,
+      "ts": 7101,
+      "comparecimento": 254,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "AM",
+      "nome": "Amazonas",
+      "pst": "1,02",
+      "pstn": 1.017530955,
+      "st": 83,
+      "ts": 8157,
+      "comparecimento": 22584,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "AP",
+      "nome": "Amapá",
+      "pst": "0,16",
+      "pstn": 0.156739812,
+      "st": 3,
+      "ts": 1914,
+      "comparecimento": 480,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "BA",
+      "nome": "Bahia",
+      "pst": "0,01",
+      "pstn": 0.014094035,
+      "st": 5,
+      "ts": 35476,
+      "comparecimento": 1470,
+      "publicado": true,
+      "candidatos": [
+        {
+          "numero": "13",
+          "nome": "Lula",
+          "partido": "PT",
+          "votos": 1148,
+          "pct": "72,20"
+        },
+        {
+          "numero": "22",
+          "nome": "Flávio Bolsonaro",
+          "partido": "PL",
+          "votos": 442,
+          "pct": "27,80"
+        }
+      ]
+    },
+    {
+      "uf": "CE",
+      "nome": "Ceará",
+      "pst": "0,01",
+      "pstn": 0.008415737,
+      "st": 2,
+      "ts": 23765,
+      "comparecimento": 537,
+      "publicado": true,
+      "candidatos": [
+        {
+          "numero": "13",
+          "nome": "Lula",
+          "partido": "PT",
+          "votos": 782,
+          "pct": "70,01"
+        },
+        {
+          "numero": "22",
+          "nome": "Flávio Bolsonaro",
+          "partido": "PL",
+          "votos": 335,
+          "pct": "29,99"
+        }
+      ]
+    },
+    {
+      "uf": "DF",
+      "nome": "Distrito Federal",
+      "pst": "0,52",
+      "pstn": 0.516573396,
+      "st": 36,
+      "ts": 6969,
+      "comparecimento": 9495,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "ES",
+      "nome": "Espírito Santo",
+      "pst": "0,00",
+      "pstn": 0.0,
+      "st": 0,
+      "ts": 9844,
+      "comparecimento": 0,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "GO",
+      "nome": "Goiás",
+      "pst": "0,02",
+      "pstn": 0.019125335,
+      "st": 3,
+      "ts": 15686,
+      "comparecimento": 918,
+      "publicado": true,
+      "candidatos": [
+        {
+          "numero": "22",
+          "nome": "Flávio Bolsonaro",
+          "partido": "PL",
+          "votos": 943,
+          "pct": "55,11"
+        },
+        {
+          "numero": "13",
+          "nome": "Lula",
+          "partido": "PT",
+          "votos": 768,
+          "pct": "44,89"
+        }
+      ]
+    },
+    {
+      "uf": "MA",
+      "nome": "Maranhão",
+      "pst": "0,06",
+      "pstn": 0.055269994,
+      "st": 10,
+      "ts": 18093,
+      "comparecimento": 1566,
+      "publicado": true,
+      "candidatos": [
+        {
+          "numero": "13",
+          "nome": "Lula",
+          "partido": "PT",
+          "votos": 2228,
+          "pct": "75,86"
+        },
+        {
+          "numero": "22",
+          "nome": "Flávio Bolsonaro",
+          "partido": "PL",
+          "votos": 709,
+          "pct": "24,14"
+        }
+      ]
+    },
+    {
+      "uf": "MG",
+      "nome": "Minas Gerais",
+      "pst": "0,03",
+      "pstn": 0.030732588,
+      "st": 16,
+      "ts": 52062,
+      "comparecimento": 3794,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "MS",
+      "nome": "Mato Grosso do Sul",
+      "pst": "0,00",
+      "pstn": 0.0,
+      "st": 0,
+      "ts": 7106,
+      "comparecimento": 0,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "MT",
+      "nome": "Mato Grosso",
+      "pst": "0,07",
+      "pstn": 0.072402558,
+      "st": 6,
+      "ts": 8287,
+      "comparecimento": 1075,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "PA",
+      "nome": "Pará",
+      "pst": "0,61",
+      "pstn": 0.614586834,
+      "st": 128,
+      "ts": 20827,
+      "comparecimento": 24498,
+      "publicado": true,
+      "candidatos": [
+        {
+          "numero": "13",
+          "nome": "Lula",
+          "partido": "PT",
+          "votos": 22949,
+          "pct": "65,03"
+        },
+        {
+          "numero": "22",
+          "nome": "Flávio Bolsonaro",
+          "partido": "PL",
+          "votos": 12343,
+          "pct": "34,97"
+        }
+      ]
+    },
+    {
+      "uf": "PB",
+      "nome": "Paraíba",
+      "pst": "0,17",
+      "pstn": 0.168035848,
+      "st": 18,
+      "ts": 10712,
+      "comparecimento": 4333,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "PE",
+      "nome": "Pernambuco",
+      "pst": "0,00",
+      "pstn": 0.0,
+      "st": 0,
+      "ts": 21418,
+      "comparecimento": 0,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "PI",
+      "nome": "Piauí",
+      "pst": "0,00",
+      "pstn": 0.0,
+      "st": 0,
+      "ts": 10225,
+      "comparecimento": 0,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "PR",
+      "nome": "Paraná",
+      "pst": "0,22",
+      "pstn": 0.221059612,
+      "st": 60,
+      "ts": 27142,
+      "comparecimento": 14364,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "RJ",
+      "nome": "Rio de Janeiro",
+      "pst": "0,00",
+      "pstn": 0.0,
+      "st": 0,
+      "ts": 37675,
+      "comparecimento": 0,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "RN",
+      "nome": "Rio Grande do Norte",
+      "pst": "0,00",
+      "pstn": 0.0,
+      "st": 0,
+      "ts": 8115,
+      "comparecimento": 0,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "RO",
+      "nome": "Rondônia",
+      "pst": "0,53",
+      "pstn": 0.532141337,
+      "st": 25,
+      "ts": 4698,
+      "comparecimento": 5591,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "RR",
+      "nome": "Roraima",
+      "pst": "0,07",
+      "pstn": 0.065832785,
+      "st": 1,
+      "ts": 1519,
+      "comparecimento": 155,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "RS",
+      "nome": "Rio Grande do Sul",
+      "pst": "0,01",
+      "pstn": 0.010890478,
+      "st": 3,
+      "ts": 27547,
+      "comparecimento": 781,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "SC",
+      "nome": "Santa Catarina",
+      "pst": "0,15",
+      "pstn": 0.150063488,
+      "st": 26,
+      "ts": 17326,
+      "comparecimento": 6631,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "SE",
+      "nome": "Sergipe",
+      "pst": "0,00",
+      "pstn": 0.0,
+      "st": 0,
+      "ts": 5923,
+      "comparecimento": 0,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "SP",
+      "nome": "São Paulo",
+      "pst": "0,00",
+      "pstn": 0.0,
+      "st": 0,
+      "ts": 103656,
+      "comparecimento": 0,
+      "publicado": false,
+      "candidatos": []
+    },
+    {
+      "uf": "TO",
+      "nome": "Tocantins",
+      "pst": "0,09",
+      "pstn": 0.091240876,
+      "st": 4,
+      "ts": 4384,
+      "comparecimento": 713,
+      "publicado": false,
+      "candidatos": []
+    }
+  ]
+}
