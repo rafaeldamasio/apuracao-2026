@@ -110,6 +110,7 @@
     #pix-fechar { background: #ececec; color: #141414; }
     h1 { font-size: 22px; line-height: 1.2; margin: 0; font-weight: 700; }
     .quando { color: var(--mudo); font-size: 13px; margin-top: 4px; }
+    .fonte { display: inline-block; margin-top: 4px; font-size: 13px; }
     .numeros {
       display: flex;
       flex-wrap: wrap;
@@ -193,6 +194,7 @@
     <div>
       <h1>Apuração presidencial 2026</h1>
       <div class="quando" id="quando">Carregando dados do TSE…</div>
+      <a class="fonte" href="https://resultados.tse.jus.br/oficial/app/index.html#/eleicao/6258/uf/br/cargo/1/vis/nominal/resultados" target="_blank" rel="noopener">Apuração oficial do TSE</a>
     </div>
     <div class="topo-acoes">
       <button type="button" class="pix-botao" id="abrir-pix">Apoiar com PIX</button>
@@ -223,7 +225,7 @@
   </div>
   <footer>
     <p id="nota"></p>
-    <p>Fonte: Tribunal Superior Eleitoral, eleição 6258, 2º turno, presidente. A cor mostra a diferença, em pontos percentuais, entre os percentuais de votos válidos. O site consulta os arquivos públicos do TSE e se atualiza sozinho enquanto a apuração está aberta.</p>
+    <p>Fonte: Tribunal Superior Eleitoral, eleição 6258, 2º turno, presidente. A cor mostra a diferença, em pontos percentuais, entre os percentuais de votos válidos. Com a página aberta, os números são lidos de novo no TSE a cada 15 segundos.</p>
   </footer>
   </div>
   <dialog id="pix" class="pix" aria-labelledby="pix-titulo">
@@ -301,36 +303,168 @@
       </div>`;
     }
 
-    async function iniciar() {
-      faixa("faixas-lula", LULA);
-      faixa("faixas-flavio", FLAVIO);
-      const [dados, mapa] = await Promise.all([
-        fetch("dados.json", { cache: "no-store" }).then((r) => r.json()),
-        fetch("mapa.json", { cache: "force-cache" }).then((r) => r.json()),
-      ]);
-      const porUf = Object.fromEntries(dados.ufs.map((uf) => [uf.uf, uf]));
+    const TSE = "https://resultados.tse.jus.br/oficial/ele2026/6258/dados";
+    const ROTULOS = { "13": "Lula", "22": "Flávio Bolsonaro" };
+    const NOMES = {
+      ac: "Acre", al: "Alagoas", am: "Amazonas", ap: "Amapá", ba: "Bahia", ce: "Ceará",
+      df: "Distrito Federal", es: "Espírito Santo", go: "Goiás", ma: "Maranhão", mg: "Minas Gerais",
+      ms: "Mato Grosso do Sul", mt: "Mato Grosso", pa: "Pará", pb: "Paraíba", pe: "Pernambuco",
+      pi: "Piauí", pr: "Paraná", rj: "Rio de Janeiro", rn: "Rio Grande do Norte", ro: "Rondônia",
+      rr: "Roraima", rs: "Rio Grande do Sul", sc: "Santa Catarina", se: "Sergipe", sp: "São Paulo",
+      to: "Tocantins",
+    };
+    let porUf = {};
+    let marcaVista = "";
+    let nominaisVistos = {};
+    let instanteVisto = 0;
+    let buscando = false;
+
+    function instanteDe(texto) {
+      const [data, hora] = String(texto || "").split(" ");
+      if (!data || !hora) return 0;
+      const [dia, mes, ano] = data.split("/").map(Number);
+      const [h, min, s] = hora.split(":").map(Number);
+      return Date.UTC(ano, mes - 1, dia, h, min, s || 0);
+    }
+
+    function inteiro(valor) {
+      const texto = String(valor || "0").replace(/\./g, "");
+      return parseInt(texto.split(",")[0] || "0", 10) || 0;
+    }
+    function decodificar(texto) {
+      let carga = texto.trim().split(".")[1];
+      carga += "=".repeat((4 - (carga.length % 4)) % 4);
+      carga = carga.replace(/-/g, "+").replace(/_/g, "/");
+      const bytes = Uint8Array.from(atob(carga), (c) => c.charCodeAt(0));
+      return JSON.parse(new TextDecoder().decode(bytes));
+    }
+    async function baixarTse(caminho) {
+      const selo = Math.floor(Date.now() / 15000);
+      const resposta = await fetch(`${TSE}/${caminho}?nocache=${selo}`, { cache: "no-store" });
+      if (!resposta.ok) throw new Error(caminho);
+      return decodificar(await resposta.text());
+    }
+    function candidatosDe(documento) {
+      const achados = [];
+      for (const cargo of documento.carg || []) {
+        for (const grupo of cargo.agr || []) {
+          for (const partido of grupo.par || []) {
+            for (const candidato of partido.cand || []) {
+              achados.push({
+                numero: String(candidato.n || ""),
+                nome: ROTULOS[String(candidato.n)] || candidato.nmu || "",
+                partido: partido.sg || "",
+                votos: inteiro(candidato.vap),
+                pct: candidato.pvap || "0,00",
+              });
+            }
+          }
+        }
+      }
+      achados.sort((a, b) => b.votos - a.votos);
+      return achados;
+    }
+    function ufDe(sigla, acompanhamento, nominal) {
+      const votos = candidatosDe(nominal || {});
+      const total = votos.reduce((soma, item) => soma + item.votos, 0);
+      return {
+        uf: sigla.toUpperCase(),
+        nome: NOMES[sigla] || "Exterior",
+        pst: acompanhamento.s.pst,
+        st: inteiro(acompanhamento.s.st),
+        ts: inteiro(acompanhamento.s.ts),
+        comparecimento: inteiro(acompanhamento.e.c),
+        publicado: total > 0,
+        candidatos: total > 0 ? votos : [],
+      };
+    }
+    function montarAoVivo(brasil, acompanhamento, nominais) {
+      const porAbr = Object.fromEntries((acompanhamento.abr || []).map((item) => [item.cdabr, item]));
+      return {
+        geradoEm: `${brasil.dt || brasil.dg || ""} ${brasil.ht || brasil.hg || ""}`.trim(),
+        nacional: {
+          pst: brasil.s.pst,
+          st: inteiro(brasil.s.st),
+          ts: inteiro(brasil.s.ts),
+          comparecimento: inteiro(brasil.e.c),
+          candidatos: candidatosDe(brasil),
+        },
+        exterior: ufDe("zz", porAbr.zz, nominais.zz),
+        ufs: Object.keys(NOMES).map((sigla) => ufDe(sigla, porAbr[sigla], nominais[sigla])),
+      };
+    }
+    function aplicar(dados) {
+      const instante = instanteDe(dados.geradoEm);
+      if (instante && instante < instanteVisto) return;
+      if (instante) instanteVisto = instante;
+      porUf = Object.fromEntries(dados.ufs.map((uf) => [uf.uf, uf]));
       const lula = achar(dados.nacional.candidatos, "13");
       const flavio = achar(dados.nacional.candidatos, "22");
       document.getElementById("quando").textContent = `2º turno · atualizado em ${dados.geradoEm} (horário de Brasília) · ${dados.nacional.pst}% das seções`;
-      document.title = `Apuração 2026 · Lula ${lula.pct}% · Flávio ${flavio.pct}%`;
-      document.getElementById("numeros").innerHTML = `
-        <div class="numero"><strong>${dados.nacional.pst}%</strong><span>${mil(dados.nacional.st)} de ${mil(dados.nacional.ts)} seções</span></div>
-        <div class="numero lula"><strong>${lula.pct}%</strong><span>Lula · ${mil(lula.votos)} votos</span></div>
-        <div class="numero flavio"><strong>${flavio.pct}%</strong><span>Flávio Bolsonaro · ${mil(flavio.votos)} votos</span></div>`;
-      encaixarTopo();
-      const parteExterior = dados.exterior.comparecimento / dados.nacional.comparecimento;
+      if (lula && flavio) {
+        document.title = `Apuração 2026 · Lula ${lula.pct}% · Flávio ${flavio.pct}%`;
+        document.getElementById("numeros").innerHTML = `
+          <div class="numero"><strong>${dados.nacional.pst}%</strong><span>${mil(dados.nacional.st)} de ${mil(dados.nacional.ts)} seções</span></div>
+          <div class="numero lula"><strong>${lula.pct}%</strong><span>Lula · ${mil(lula.votos)} votos</span></div>
+          <div class="numero flavio"><strong>${flavio.pct}%</strong><span>Flávio Bolsonaro · ${mil(flavio.votos)} votos</span></div>`;
+      }
+      const parteExterior = dados.exterior && dados.nacional.comparecimento
+        ? dados.exterior.comparecimento / dados.nacional.comparecimento
+        : 0;
       document.getElementById("nota").textContent = parteExterior > 0.4
         ? `Neste horário, o exterior responde por ${mil(dados.exterior.comparecimento)} comparecimentos (${Math.round(parteExterior * 100)}% do total nacional), com ${dados.exterior.pst}% das seções de fora do país apuradas.`
         : "";
+      for (const path of document.querySelectorAll("#mapa path")) {
+        const uf = porUf[path.dataset.uf];
+        if (uf) path.setAttribute("fill", cor(uf));
+      }
+      encaixarTopo();
+    }
+    async function aoVivo() {
+      if (buscando) return;
+      buscando = true;
+      try {
+      const brasil = await baixarTse("br/br-c0001-e006258-u.jws");
+      const acompanhamento = await baixarTse("br/br-e006258-ab.jws");
+      const marca = `${brasil.dg}|${brasil.hg}|${acompanhamento.dg}|${acompanhamento.hg}`;
+      if (marca !== marcaVista) {
+        const siglas = [...Object.keys(NOMES), "zz"];
+        const pares = await Promise.all(siglas.map(async (sigla) => {
+          try {
+            return [sigla, await baixarTse(`${sigla}/${sigla}-c0001-e006258-u.jws`)];
+          } catch {
+            return [sigla, nominaisVistos[sigla] || {}];
+          }
+        }));
+        nominaisVistos = Object.fromEntries(pares);
+        marcaVista = marca;
+      }
+      aplicar(montarAoVivo(brasil, acompanhamento, nominaisVistos));
+      } finally {
+        buscando = false;
+      }
+    }
 
-      const svg = document.querySelector("svg");
+    async function iniciar() {
+      faixa("faixas-lula", LULA);
+      faixa("faixas-flavio", FLAVIO);
+      const mapa = await fetch("mapa.json", { cache: "force-cache" }).then((r) => r.json());
+      let instantaneo = null;
+      try {
+        instantaneo = await fetch("dados.json", { cache: "no-store" }).then((r) => r.json());
+      } catch { /* a leitura ao vivo cobre a ausência do arquivo local */ }
+
+      const svg = document.querySelector("#mapa svg");
       const ns = "http://www.w3.org/2000/svg";
       const dica = document.getElementById("dica");
       const caixa = document.getElementById("mapa");
       const toque = window.matchMedia("(max-width: 720px)").matches;
-      const formas = mapa.ufs.slice().sort((a, b) => (porUf[b.uf]?.ts || 0) - (porUf[a.uf]?.ts || 0));
+      const base = instantaneo ? Object.fromEntries(instantaneo.ufs.map((uf) => [uf.uf, uf])) : {};
+      const formas = mapa.ufs.slice().sort((a, b) => (base[b.uf]?.ts || 0) - (base[a.uf]?.ts || 0));
 
-      function mostrar(uf, evento) {
+      function mostrar(sigla, evento) {
+        const uf = porUf[sigla];
+        if (!uf) return;
         dica.classList.remove("sumico");
         dica.innerHTML = htmlDica(uf);
         if (toque) return;
@@ -344,18 +478,17 @@
       }
 
       for (const forma of formas) {
-        const uf = porUf[forma.uf];
-        if (!uf) continue;
         const path = document.createElementNS(ns, "path");
+        path.dataset.uf = forma.uf;
         path.setAttribute("d", forma.d);
-        path.setAttribute("fill", cor(uf));
+        path.setAttribute("fill", base[forma.uf] ? cor(base[forma.uf]) : CINZA);
         path.setAttribute("fill-rule", "evenodd");
         path.setAttribute("stroke", "#f4f4f4");
         path.setAttribute("stroke-width", "0.8");
         path.setAttribute("stroke-linejoin", "round");
-        path.addEventListener("pointerenter", (evento) => mostrar(uf, evento));
-        path.addEventListener("pointermove", (evento) => { if (!toque) mostrar(uf, evento); });
-        path.addEventListener("pointerdown", (evento) => mostrar(uf, evento));
+        path.addEventListener("pointerenter", (evento) => mostrar(forma.uf, evento));
+        path.addEventListener("pointermove", (evento) => { if (!toque) mostrar(forma.uf, evento); });
+        path.addEventListener("pointerdown", (evento) => mostrar(forma.uf, evento));
         svg.appendChild(path);
       }
       for (const forma of mapa.ufs) {
@@ -373,6 +506,18 @@
         svg.appendChild(texto);
       }
       if (!toque) caixa.addEventListener("pointerleave", () => dica.classList.add("sumico"));
+      if (instantaneo) aplicar(instantaneo);
+      try {
+        await aoVivo();
+      } catch {
+        if (!instantaneo) throw new Error("tse");
+      }
+      setInterval(() => {
+        if (!document.hidden) aoVivo().catch(() => {});
+      }, 15000);
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) aoVivo().catch(() => {});
+      });
     }
     async function contarVisita() {
       const el = document.getElementById("visitas");
