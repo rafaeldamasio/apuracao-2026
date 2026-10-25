@@ -63,6 +63,8 @@
       cursor: pointer;
     }
     .pix-botao:hover { border-color: #fff; }
+    .topo-acoes { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+    .visitas { color: var(--mudo); font-size: 12px; }
     dialog.pix {
       border: 0;
       padding: 0;
@@ -192,7 +194,10 @@
       <h1>Apuração presidencial 2026</h1>
       <div class="quando" id="quando">Carregando dados do TSE…</div>
     </div>
-    <button type="button" class="pix-botao" id="abrir-pix">Apoiar com PIX</button>
+    <div class="topo-acoes">
+      <button type="button" class="pix-botao" id="abrir-pix">Apoiar com PIX</button>
+      <div class="visitas" id="visitas"></div>
+    </div>
   </header>
   <section class="numeros" id="numeros"></section>
   <section class="legenda" aria-label="Diferença em pontos percentuais">
@@ -369,8 +374,27 @@
       }
       if (!toque) caixa.addEventListener("pointerleave", () => dica.classList.add("sumico"));
     }
+    async function contarVisita() {
+      const el = document.getElementById("visitas");
+      const base = "https://abacus.jasoncameron.dev";
+      const nome = "rafaeldamasio.github.io/apuracao-2026";
+      const jaContou = sessionStorage.getItem("apuracao-visita") === "1";
+      try {
+        const resposta = await fetch(`${base}/${jaContou ? "get" : "hit"}/${nome}`);
+        if (!resposta.ok) throw new Error();
+        const dados = await resposta.json();
+        const total = Number(dados.value);
+        if (!Number.isFinite(total)) throw new Error();
+        if (!jaContou) sessionStorage.setItem("apuracao-visita", "1");
+        el.textContent = total === 1 ? "1 visita" : `${mil(total)} visitas`;
+      } catch {
+        el.remove();
+      }
+      encaixarTopo();
+    }
     encaixarTopo();
     window.addEventListener("resize", encaixarTopo);
+    contarVisita();
     const pixDialog = document.getElementById("pix");
     const codigoPix = document.getElementById("pix-codigo").value;
     document.getElementById("abrir-pix").addEventListener("click", () => pixDialog.showModal());
