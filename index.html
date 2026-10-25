@@ -42,7 +42,7 @@
     }
     .rolagem { padding-top: var(--topo); }
     a { color: #e07070; }
-    header, footer, .legenda, .numeros { padding: 0 20px; flex: 0 0 auto; }
+    header, footer, .legenda, .numeros, .votacao { padding: 0 20px; flex: 0 0 auto; }
     header {
       display: flex;
       justify-content: space-between;
@@ -121,6 +121,15 @@
     .numero span { color: var(--mudo); font-size: 13px; }
     .numero.lula strong { color: var(--lula-claro); }
     .numero.flavio strong { color: var(--flavio-claro); }
+    .votacao {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 18px;
+      margin-top: 6px;
+      color: var(--mudo);
+      font-size: 13px;
+    }
+    .votacao strong { color: var(--texto); font-weight: 650; }
     .legenda { margin: 8px 0; display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: flex-end; }
     .faixas { display: flex; gap: 4px; }
     .faixas i { width: 28px; height: 12px; display: block; }
@@ -202,6 +211,7 @@
     </div>
   </header>
   <section class="numeros" id="numeros"></section>
+  <section class="votacao" id="votacao" aria-label="Votação"></section>
   <section class="legenda" aria-label="Diferença em pontos percentuais">
     <div>
       <div class="faixas" id="faixas-lula"></div>
@@ -387,11 +397,39 @@
           st: inteiro(brasil.s.st),
           ts: inteiro(brasil.s.ts),
           comparecimento: inteiro(brasil.e.c),
+          votos: inteiro(brasil.v.tv),
+          validos: inteiro(brasil.v.vv),
+          pctNominais: brasil.v.pvvc,
+          brancos: inteiro(brasil.v.vb),
+          pctBrancos: brasil.v.pvb,
+          nulos: inteiro(brasil.v.tvn),
+          pctNulos: brasil.v.ptvn,
+          anulados: inteiro(brasil.v.van),
+          anuladosSubjudice: inteiro(brasil.v.vansj),
           candidatos: candidatosDe(brasil),
         },
         exterior: ufDe("zz", porAbr.zz, nominais.zz),
         ufs: Object.keys(NOMES).map((sigla) => ufDe(sigla, porAbr[sigla], nominais[sigla])),
       };
+    }
+    function htmlVotacao(nacional) {
+      const validos = nacional.validos;
+      if (validos == null) return "";
+      const brancos = nacional.brancos || 0;
+      const nulos = nacional.nulos || 0;
+      const votos = nacional.votos != null ? nacional.votos : validos + brancos + nulos;
+      const nominais = nacional.pctNominais || ((votos ? (validos / votos) * 100 : 0).toFixed(2).replace(".", ","));
+      const anulados = nacional.anulados;
+      const subjudice = nacional.anuladosSubjudice;
+      const extra = anulados == null
+        ? ""
+        : `<span>anulados ${mil(anulados)} · sub judice ${mil(subjudice || 0)}</span>`;
+      return `
+        <span><strong>${mil(votos)}</strong> votos</span>
+        <span><strong>${nominais}%</strong> nominais · ${mil(validos)} válidos</span>
+        <span><strong>${nacional.pctBrancos}%</strong> brancos · ${mil(brancos)}</span>
+        <span><strong>${nacional.pctNulos}%</strong> nulos · ${mil(nulos)}</span>
+        ${extra}`;
     }
     function aplicar(dados) {
       const instante = instanteDe(dados.geradoEm);
@@ -405,8 +443,9 @@
         document.title = `Apuração 2026 · Lula ${lula.pct}% · Flávio ${flavio.pct}%`;
         document.getElementById("numeros").innerHTML = `
           <div class="numero"><strong>${dados.nacional.pst}%</strong><span>${mil(dados.nacional.st)} de ${mil(dados.nacional.ts)} seções</span></div>
-          <div class="numero lula"><strong>${lula.pct}%</strong><span>Lula · ${mil(lula.votos)} votos</span></div>
-          <div class="numero flavio"><strong>${flavio.pct}%</strong><span>Flávio Bolsonaro · ${mil(flavio.votos)} votos</span></div>`;
+          <div class="numero lula"><strong>${lula.pct}%</strong><span>Lula · PT 13 · ${mil(lula.votos)} votos</span></div>
+          <div class="numero flavio"><strong>${flavio.pct}%</strong><span>Flávio Bolsonaro · PL 22 · ${mil(flavio.votos)} votos</span></div>`;
+        document.getElementById("votacao").innerHTML = htmlVotacao(dados.nacional);
       }
       const parteExterior = dados.exterior && dados.nacional.comparecimento
         ? dados.exterior.comparecimento / dados.nacional.comparecimento
