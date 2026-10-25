@@ -1,14 +1,14 @@
 {
-  "geradoEm": "25/10/2026 19:13:32",
+  "geradoEm": "25/10/2026 19:14:33",
   "eleicao": "6258",
   "nacional": {
-    "pst": "1,74",
-    "st": 8674,
+    "pst": "1,79",
+    "st": 8916,
     "ts": 499248,
-    "comparecimento": 2227252,
-    "validos": 2162713,
-    "brancos": 22453,
-    "nulos": 42086,
+    "comparecimento": 2288029,
+    "validos": 2221802,
+    "brancos": 23020,
+    "nulos": 43207,
     "pctBrancos": "1,01",
     "pctNulos": "1,89",
     "candidatos": [
@@ -16,15 +16,15 @@
         "numero": "13",
         "nome": "Lula",
         "partido": "PT",
-        "votos": 1126437,
-        "pct": "52,08"
+        "votos": 1157703,
+        "pct": "52,11"
       },
       {
         "numero": "22",
         "nome": "Flávio Bolsonaro",
         "partido": "PL",
-        "votos": 1036276,
-        "pct": "47,92"
+        "votos": 1064099,
+        "pct": "47,89"
       }
     ]
   },
@@ -58,208 +58,208 @@
     {
       "uf": "AC",
       "nome": "Acre",
-      "pst": "5,51",
-      "pstn": 5.50660793,
-      "st": 125,
+      "pst": "5,59",
+      "pstn": 5.594713656,
+      "st": 127,
       "ts": 2270,
-      "comparecimento": 19596,
+      "comparecimento": 20067,
       "publicado": true,
       "candidatos": [
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 10976,
-          "pct": "60,88"
+          "votos": 11482,
+          "pct": "60,37"
         },
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 7052,
-          "pct": "39,12"
+          "votos": 7538,
+          "pct": "39,63"
         }
       ]
     },
     {
       "uf": "AL",
       "nome": "Alagoas",
-      "pst": "0,62",
-      "pstn": 0.619631038,
-      "st": 44,
+      "pst": "0,65",
+      "pstn": 0.647796085,
+      "st": 46,
       "ts": 7101,
-      "comparecimento": 12377,
+      "comparecimento": 12815,
       "publicado": true,
       "candidatos": [
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 7474,
-          "pct": "62,07"
+          "votos": 7559,
+          "pct": "61,83"
         },
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 4567,
-          "pct": "37,93"
+          "votos": 4667,
+          "pct": "38,17"
         }
       ]
     },
     {
       "uf": "AM",
       "nome": "Amazonas",
-      "pst": "9,11",
-      "pstn": 9.108740959,
-      "st": 743,
+      "pst": "9,32",
+      "pstn": 9.317150913,
+      "st": 760,
       "ts": 8157,
-      "comparecimento": 207508,
+      "comparecimento": 212503,
       "publicado": true,
       "candidatos": [
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 100146,
-          "pct": "50,81"
+          "votos": 104739,
+          "pct": "50,90"
         },
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 96957,
-          "pct": "49,19"
+          "votos": 101045,
+          "pct": "49,10"
         }
       ]
     },
     {
       "uf": "AP",
       "nome": "Amapá",
-      "pst": "2,46",
-      "pstn": 2.455590387,
-      "st": 47,
+      "pst": "2,61",
+      "pstn": 2.612330199,
+      "st": 50,
       "ts": 1914,
-      "comparecimento": 7535,
+      "comparecimento": 7964,
       "publicado": true,
       "candidatos": [
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 4835,
-          "pct": "70,85"
+          "votos": 5670,
+          "pct": "71,99"
         },
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 1989,
-          "pct": "29,15"
+          "votos": 2206,
+          "pct": "28,01"
         }
       ]
     },
     {
       "uf": "BA",
       "nome": "Bahia",
-      "pst": "0,28",
-      "pstn": 0.276243094,
-      "st": 98,
+      "pst": "0,29",
+      "pstn": 0.293155936,
+      "st": 104,
       "ts": 35476,
-      "comparecimento": 28183,
+      "comparecimento": 29643,
       "publicado": true,
       "candidatos": [
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 19103,
-          "pct": "71,53"
+          "votos": 20203,
+          "pct": "71,08"
         },
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 7602,
-          "pct": "28,47"
+          "votos": 8219,
+          "pct": "28,92"
         }
       ]
     },
     {
       "uf": "CE",
       "nome": "Ceará",
-      "pst": "0,13",
-      "pstn": 0.134651799,
-      "st": 32,
+      "pst": "0,14",
+      "pstn": 0.138859668,
+      "st": 33,
       "ts": 23765,
-      "comparecimento": 8736,
+      "comparecimento": 8981,
       "publicado": true,
       "candidatos": [
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 5587,
-          "pct": "65,80"
+          "votos": 5789,
+          "pct": "66,33"
         },
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 2904,
-          "pct": "34,20"
+          "votos": 2939,
+          "pct": "33,67"
         }
       ]
     },
     {
       "uf": "DF",
       "nome": "Distrito Federal",
-      "pst": "12,28",
-      "pstn": 12.282967427,
-      "st": 856,
+      "pst": "12,56",
+      "pstn": 12.555603386,
+      "st": 875,
       "ts": 6969,
-      "comparecimento": 222304,
+      "comparecimento": 227482,
       "publicado": true,
       "candidatos": [
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 112134,
-          "pct": "54,87"
+          "votos": 120013,
+          "pct": "54,63"
         },
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 92220,
-          "pct": "45,13"
+          "votos": 99671,
+          "pct": "45,37"
         }
       ]
     },
     {
       "uf": "ES",
       "nome": "Espírito Santo",
-      "pst": "0,14",
-      "pstn": 0.14221861,
-      "st": 14,
+      "pst": "0,15",
+      "pstn": 0.152377082,
+      "st": 15,
       "ts": 9844,
-      "comparecimento": 3192,
+      "comparecimento": 3421,
       "publicado": true,
       "candidatos": [
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 1615,
-          "pct": "53,18"
+          "votos": 1707,
+          "pct": "52,47"
         },
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 1422,
-          "pct": "46,82"
+          "votos": 1546,
+          "pct": "47,53"
         }
       ]
     },
@@ -292,37 +292,37 @@
     {
       "uf": "MA",
       "nome": "Maranhão",
-      "pst": "1,59",
-      "pstn": 1.586248826,
-      "st": 287,
+      "pst": "1,72",
+      "pstn": 1.718896811,
+      "st": 311,
       "ts": 18093,
-      "comparecimento": 58277,
+      "comparecimento": 63208,
       "publicado": true,
       "candidatos": [
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 40223,
-          "pct": "70,43"
+          "votos": 43260,
+          "pct": "69,82"
         },
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 16889,
-          "pct": "29,57"
+          "votos": 18701,
+          "pct": "30,18"
         }
       ]
     },
     {
       "uf": "MG",
       "nome": "Minas Gerais",
-      "pst": "0,93",
-      "pstn": 0.931581576,
-      "st": 485,
+      "pst": "0,95",
+      "pstn": 0.950789443,
+      "st": 495,
       "ts": 52062,
-      "comparecimento": 143707,
+      "comparecimento": 146953,
       "publicado": true,
       "candidatos": [
         {
@@ -344,182 +344,182 @@
     {
       "uf": "MS",
       "nome": "Mato Grosso do Sul",
-      "pst": "0,58",
-      "pstn": 0.576977202,
-      "st": 41,
+      "pst": "0,66",
+      "pstn": 0.661412891,
+      "st": 47,
       "ts": 7106,
-      "comparecimento": 7950,
+      "comparecimento": 9275,
       "publicado": true,
       "candidatos": [
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 4031,
-          "pct": "51,81"
+          "votos": 4625,
+          "pct": "51,01"
         },
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 3749,
-          "pct": "48,19"
+          "votos": 4441,
+          "pct": "48,99"
         }
       ]
     },
     {
       "uf": "MT",
       "nome": "Mato Grosso",
-      "pst": "3,28",
-      "pstn": 3.282249306,
-      "st": 272,
+      "pst": "3,37",
+      "pstn": 3.366718957,
+      "st": 279,
       "ts": 8287,
-      "comparecimento": 63384,
+      "comparecimento": 65260,
       "publicado": true,
       "candidatos": [
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 32843,
-          "pct": "56,24"
+          "votos": 35096,
+          "pct": "56,15"
         },
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 25553,
-          "pct": "43,76"
+          "votos": 27407,
+          "pct": "43,85"
         }
       ]
     },
     {
       "uf": "PA",
       "nome": "Pará",
-      "pst": "6,92",
-      "pstn": 6.918903347,
-      "st": 1441,
+      "pst": "7,15",
+      "pstn": 7.154174869,
+      "st": 1490,
       "ts": 20827,
-      "comparecimento": 353503,
+      "comparecimento": 365393,
       "publicado": true,
       "candidatos": [
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 196684,
-          "pct": "56,88"
+          "votos": 202906,
+          "pct": "56,77"
         },
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 149081,
-          "pct": "43,12"
+          "votos": 154492,
+          "pct": "43,23"
         }
       ]
     },
     {
       "uf": "PB",
       "nome": "Paraíba",
-      "pst": "6,19",
-      "pstn": 6.189320388,
-      "st": 663,
+      "pst": "6,49",
+      "pstn": 6.488050784,
+      "st": 695,
       "ts": 10712,
-      "comparecimento": 166273,
+      "comparecimento": 174602,
       "publicado": true,
       "candidatos": [
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 113978,
-          "pct": "73,28"
+          "votos": 123024,
+          "pct": "72,70"
         },
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 41559,
-          "pct": "26,72"
+          "votos": 46188,
+          "pct": "27,30"
         }
       ]
     },
     {
       "uf": "PE",
       "nome": "Pernambuco",
-      "pst": "0,29",
-      "pstn": 0.294145112,
-      "st": 63,
+      "pst": "0,31",
+      "pstn": 0.308152022,
+      "st": 66,
       "ts": 21418,
-      "comparecimento": 16926,
+      "comparecimento": 17881,
       "publicado": true,
       "candidatos": [
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 12030,
-          "pct": "73,09"
+          "votos": 12657,
+          "pct": "72,81"
         },
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 4430,
-          "pct": "26,91"
+          "votos": 4727,
+          "pct": "27,19"
         }
       ]
     },
     {
       "uf": "PI",
       "nome": "Piauí",
-      "pst": "0,39",
-      "pstn": 0.391198044,
-      "st": 40,
+      "pst": "0,45",
+      "pstn": 0.449877751,
+      "st": 46,
       "ts": 10225,
-      "comparecimento": 8275,
+      "comparecimento": 9406,
       "publicado": true,
       "candidatos": [
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 6402,
-          "pct": "79,29"
+          "votos": 6673,
+          "pct": "79,60"
         },
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 1672,
-          "pct": "20,71"
+          "votos": 1710,
+          "pct": "20,40"
         }
       ]
     },
     {
       "uf": "PR",
       "nome": "Paraná",
-      "pst": "5,60",
-      "pstn": 5.603861175,
-      "st": 1521,
+      "pst": "5,69",
+      "pstn": 5.69228502,
+      "st": 1545,
       "ts": 27142,
-      "comparecimento": 398154,
+      "comparecimento": 404424,
       "publicado": true,
       "candidatos": [
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 230446,
-          "pct": "60,93"
+          "votos": 239289,
+          "pct": "60,98"
         },
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 147758,
-          "pct": "39,07"
+          "votos": 153092,
+          "pct": "39,02"
         }
       ]
     },
@@ -552,52 +552,52 @@
     {
       "uf": "RN",
       "nome": "Rio Grande do Norte",
-      "pst": "1,12",
-      "pstn": 1.12138016,
-      "st": 91,
+      "pst": "1,20",
+      "pstn": 1.195317314,
+      "st": 97,
       "ts": 8115,
-      "comparecimento": 23500,
+      "comparecimento": 25161,
       "publicado": true,
       "candidatos": [
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 15607,
-          "pct": "72,49"
+          "votos": 17533,
+          "pct": "72,39"
         },
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 5923,
-          "pct": "27,51"
+          "votos": 6686,
+          "pct": "27,61"
         }
       ]
     },
     {
       "uf": "RO",
       "nome": "Rondônia",
-      "pst": "5,81",
-      "pstn": 5.810983397,
-      "st": 273,
+      "pst": "6,02",
+      "pstn": 6.023839932,
+      "st": 283,
       "ts": 4698,
-      "comparecimento": 59242,
+      "comparecimento": 61569,
       "publicado": true,
       "candidatos": [
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 33867,
-          "pct": "60,81"
+          "votos": 36681,
+          "pct": "60,93"
         },
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 21830,
-          "pct": "39,19"
+          "votos": 23522,
+          "pct": "39,07"
         }
       ]
     },
@@ -630,52 +630,52 @@
     {
       "uf": "RS",
       "nome": "Rio Grande do Sul",
-      "pst": "0,41",
-      "pstn": 0.410208008,
-      "st": 113,
+      "pst": "0,42",
+      "pstn": 0.421098486,
+      "st": 116,
       "ts": 27547,
-      "comparecimento": 27154,
+      "comparecimento": 27836,
       "publicado": true,
       "candidatos": [
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 17223,
-          "pct": "65,93"
+          "votos": 17750,
+          "pct": "65,62"
         },
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 8900,
-          "pct": "34,07"
+          "votos": 9300,
+          "pct": "34,38"
         }
       ]
     },
     {
       "uf": "SC",
       "nome": "Santa Catarina",
-      "pst": "1,63",
-      "pstn": 1.627611682,
-      "st": 282,
+      "pst": "1,66",
+      "pstn": 1.656470045,
+      "st": 287,
       "ts": 17326,
-      "comparecimento": 79372,
+      "comparecimento": 80865,
       "publicado": true,
       "candidatos": [
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 40292,
-          "pct": "52,60"
+          "votos": 41098,
+          "pct": "52,56"
         },
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 36303,
-          "pct": "47,40"
+          "votos": 37092,
+          "pct": "47,44"
         }
       ]
     },
@@ -719,26 +719,26 @@
     {
       "uf": "TO",
       "nome": "Tocantins",
-      "pst": "5,91",
-      "pstn": 5.907846715,
-      "st": 259,
+      "pst": "6,04",
+      "pstn": 6.044708029,
+      "st": 265,
       "ts": 4384,
-      "comparecimento": 53463,
+      "comparecimento": 54679,
       "publicado": true,
       "candidatos": [
         {
           "numero": "13",
           "nome": "Lula",
           "partido": "PT",
-          "votos": 25899,
-          "pct": "52,78"
+          "votos": 27284,
+          "pct": "52,32"
         },
         {
           "numero": "22",
           "nome": "Flávio Bolsonaro",
           "partido": "PL",
-          "votos": 23174,
-          "pct": "47,22"
+          "votos": 24866,
+          "pct": "47,68"
         }
       ]
     }
