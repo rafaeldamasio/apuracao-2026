@@ -37,7 +37,7 @@ def main() -> None:
     desenho.text((72, 138), "2º turno  ·  presidente", font=fonte(28), fill="#bdbdbd")
     desenho.text((72, 250), f"{lula['pct']}%", font=fonte(92, True), fill="#f3b5bf")
     desenho.text((72, 360), "Lula", font=fonte(36), fill="#ffffff")
-    desenho.text((620, 250), f"{flavio['pct']}%", font=fonte(92, True), fill="#bec0e0")
+    desenho.text((620, 250), f"{flavio['pct']}%", font=fonte(92, True), fill="#8fd9a8")
     desenho.text((620, 360), "Flávio Bolsonaro", font=fonte(36), fill="#ffffff")
     desenho.text(
         (72, 500),
