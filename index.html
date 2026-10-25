@@ -27,17 +27,20 @@
       --flavio-claro: #8fd9a8;
       --lula-faixas: #e88c8c, #d94040, #cc0000;
       --flavio-faixas: #b7e6c9, #2da85a, #009c3b;
+      --topo: 176px;
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; background: var(--fundo); color: var(--texto); }
-    body {
-      font-family: "Segoe UI", system-ui, sans-serif;
-      height: 100dvh;
-      max-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
+    body { font-family: "Segoe UI", system-ui, sans-serif; }
+    .topo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      background: var(--fundo);
     }
+    .rolagem { padding-top: var(--topo); }
     a { color: #e07070; }
     header, footer, .legenda, .numeros { padding: 0 20px; flex: 0 0 auto; }
     header {
@@ -65,9 +68,8 @@
     .rotulo { font-size: 12px; color: var(--mudo); margin-top: 4px; }
     .mapa-caixa {
       position: relative;
-      flex: 1 1 auto;
-      min-height: 0;
-      min-width: 0;
+      height: calc(100dvh - var(--topo));
+      min-height: 320px;
       width: 100%;
     }
     svg {
@@ -127,6 +129,7 @@
   </style>
 </head>
 <body>
+  <div class="topo">
   <header>
     <div>
       <h1>Apuração presidencial 2026</h1>
@@ -149,6 +152,8 @@
     </div>
     <div class="rotulo">0 a 5 p.p. · 5 a 20 p.p. · acima de 20 p.p.</div>
   </section>
+  </div>
+  <div class="rolagem">
   <div class="mapa-caixa" id="mapa">
     <svg viewBox="0 0 560 560" role="img" aria-label="Mapa do Brasil com a vantagem de cada candidato por estado"></svg>
     <aside class="dica sumico" id="dica"></aside>
@@ -157,6 +162,7 @@
     <p id="nota"></p>
     <p>Fonte: Tribunal Superior Eleitoral, eleição 6258, 2º turno, presidente. A cor mostra a diferença, em pontos percentuais, entre os percentuais de votos válidos. O site consulta os arquivos públicos do TSE e se atualiza sozinho enquanto a apuração está aberta.</p>
   </footer>
+  </div>
   <script>
     const LULA = ["#e88c8c", "#d94040", "#cc0000"];
     const FLAVIO = ["#b7e6c9", "#2da85a", "#009c3b"];
@@ -186,6 +192,10 @@
     }
     function faixa(id, cores) {
       document.getElementById(id).innerHTML = cores.map((c) => `<i style="background:${c}"></i>`).join("");
+    }
+    function encaixarTopo() {
+      const altura = document.querySelector(".topo").offsetHeight;
+      document.documentElement.style.setProperty("--topo", altura + "px");
     }
 
     function htmlDica(uf) {
@@ -230,6 +240,7 @@
         <div class="numero"><strong>${dados.nacional.pst}%</strong><span>${mil(dados.nacional.st)} de ${mil(dados.nacional.ts)} seções</span></div>
         <div class="numero lula"><strong>${lula.pct}%</strong><span>Lula · ${mil(lula.votos)} votos</span></div>
         <div class="numero flavio"><strong>${flavio.pct}%</strong><span>Flávio Bolsonaro · ${mil(flavio.votos)} votos</span></div>`;
+      encaixarTopo();
       const parteExterior = dados.exterior.comparecimento / dados.nacional.comparecimento;
       document.getElementById("nota").textContent = parteExterior > 0.4
         ? `Neste horário, o exterior responde por ${mil(dados.exterior.comparecimento)} comparecimentos (${Math.round(parteExterior * 100)}% do total nacional), com ${dados.exterior.pst}% das seções de fora do país apuradas.`
@@ -286,8 +297,11 @@
       }
       if (!toque) caixa.addEventListener("pointerleave", () => dica.classList.add("sumico"));
     }
+    encaixarTopo();
+    window.addEventListener("resize", encaixarTopo);
     iniciar().catch(() => {
       document.getElementById("quando").textContent = "Não foi possível carregar a apuração agora.";
+      encaixarTopo();
     });
   </script>
 </body>
