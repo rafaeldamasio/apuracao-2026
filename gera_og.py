@@ -32,10 +32,10 @@ def main() -> None:
 
     imagem = Image.new("RGB", (1200, 630), "#0d0d0e")
     desenho = ImageDraw.Draw(imagem)
-    desenho.rectangle((0, 0, 1200, 8), fill="#d60828")
+    desenho.rectangle((0, 0, 1200, 8), fill="#cc0000")
     desenho.text((72, 78), "Apuração presidencial 2026", font=fonte(42, True), fill="#ffffff")
     desenho.text((72, 138), "2º turno  ·  presidente", font=fonte(28), fill="#bdbdbd")
-    desenho.text((72, 250), f"{lula['pct']}%", font=fonte(92, True), fill="#f3b5bf")
+    desenho.text((72, 250), f"{lula['pct']}%", font=fonte(92, True), fill="#cc0000")
     desenho.text((72, 360), "Lula", font=fonte(36), fill="#ffffff")
     desenho.text((620, 250), f"{flavio['pct']}%", font=fonte(92, True), fill="#8fd9a8")
     desenho.text((620, 360), "Flávio Bolsonaro", font=fonte(36), fill="#ffffff")
